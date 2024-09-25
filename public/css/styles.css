@@ -98,7 +98,7 @@ header, a{
   margin:40px;
   margin-top: -40px;
   margin-bottom: -40px;
-  padding: -10px;
+  padding: 0px;
   justify-content: space-around;
   color: white;
   border-left: 3px solid blue;
@@ -139,7 +139,7 @@ main {
 
 /* Button styles */
 .btn {
-  background-color: #007bff;
+  background-color: #041f3d;
   color: #fff;
   padding: 10px 20px;
   text-align: center;
@@ -166,11 +166,20 @@ main {
 
 .upgrades {
   flex: 1;
+ 
 }
 
 .reviews {
+
+  margin-top: 20px;
   flex: 1;
   margin-left: 20px;
+}
+
+.reviews ul li {
+  padding: 20px;
+  font-weight: 600;
+
 }
 
 .car-ups {
@@ -271,9 +280,16 @@ footer{
 
 
 /* Media queries for L screen*/
-@media screen and (min-width:768) {
+@media screen and (min-width:768px) {
   /*Remove bckground image for small screens */
   body {
     background-image: url(/images/site/checkerboard.jpg);
+  }
+  .upgrades{
+    margin-top: 60px;
+  }
+
+  .reviews{
+    margin-top: 60px;
   }
 }
