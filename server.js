@@ -11,7 +11,9 @@ require("express-ejs-layouts")
 const env = require("dotenv").config()
 const app = express()
 const static = require("./routes/static")
-const utilities = require("./utils/utilities")
+const utilities = require("./utils/index")
+const path = require("path");
+
 
 
 /* ***********************
@@ -19,8 +21,16 @@ const utilities = require("./utils/utilities")
  *************************/
 app.set("view engine", "ejs")
 app.use(expressLayouts)
-app.set("layout", "./layouts/layout") // not at views root
+// app.set("layout", "./layouts/layout") // not at views root
+app.set("layout", path.join(__dirname, "views", "layouts", "layout.ejs"));
 
+// app.set("views", path.join(__dirname, "."));
+
+const title = 'CSE 340 App'
+app.use((req, res, next) => {
+  res.locals.title = title
+  next()
+})
 /* ***********************
  * Routes
  *************************/
@@ -30,8 +40,10 @@ app.get("/", function(req, res){
   res.render("index", {title: "Home"})
 })
 
-
-
+// File Not found Route - must be last route
+app.use(async (req, res, next) => {
+  next({status: 404, message: 'Sorry, we appear to have lost that page.'})
+})
 
 /* ***********************
 * Express Error Handler
@@ -39,14 +51,14 @@ app.get("/", function(req, res){
 *************************/
 app.use(async (err, req, res, next) => {
   let nav = await utilities.getNav()
+  const errType = typeof err.message
   console.error(`Error at: "${req.originalUrl}": ${err.message}`)
   res.render("errors/error", {
-    title: err.status || 'Server Error',
+    err:err,
     message: err.message,
     nav
   })
 })
-
 
 
 /* ***********************
@@ -64,7 +76,4 @@ app.listen(port, () => {
 })
 
 
-// File Not found Route - must be last route
-app.use(async (req, res, next) => {
-  next({status: 404, message: 'Sorry, we appear to have lost that page.'})
-})
+
