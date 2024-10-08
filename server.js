@@ -11,8 +11,9 @@ require("express-ejs-layouts")
 const env = require("dotenv").config()
 const app = express()
 const static = require("./routes/static")
-const utilities = require("./utils/index")
+const {utilities} = require("./utils/index")
 const path = require("path");
+const baseController = require("./controllers/baseController")
 
 
 
@@ -36,6 +37,7 @@ app.use((req, res, next) => {
  *************************/
 app.use(static)
 // Index route
+// app.get("/", utilities.handleErrors(baseController.buildHome))
 app.get("/", function(req, res){
   res.render("index", {title: "Home"})
 })
@@ -50,7 +52,7 @@ app.use(async (req, res, next) => {
 * Place after all other middleware
 *************************/
 app.use(async (err, req, res, next) => {
-  let nav = await utilities.getNav()
+  let nav = await utilities
   const errType = typeof err.message
   console.error(`Error at: "${req.originalUrl}": ${err.message}`)
   res.render("errors/error", {
@@ -59,6 +61,17 @@ app.use(async (err, req, res, next) => {
     nav
   })
 })
+
+// app.use(async (err, req, res, next) => {
+//   let nav = await utilities.getNav()
+//   console.error(`Error at: "${req.originalUrl}": ${err.message}`)
+//   if(err.status == 404){ message = err.message} else {message = 'Oh no! There was a crash. Maybe try a different route?'}
+//   res.render("errors/error", {
+//     title: err.status || 'Server Error',
+//     message,
+//     nav
+//   })
+// })
 
 
 /* ***********************
