@@ -1,0 +1,38 @@
+<!-- Vehicle List Item Template -->
+ <ul>
+    <li>
+        <div class="row">
+        <div class="col-md-8">
+        <h3><%- vehicle.name %></h3>
+        
+        <p class="price"><span class="currency-symbol">$</span><%- vehicle.price %></p>
+        <p><%- vehicle.year %></p>
+        <p><%- vehicle.make %></p>
+        <p><%- vehicle.model %></p>
+        <p><%- vehicle.vin %></p>
+        <p><%- vehicle.description %></p>
+            
+        <!-- Delete Link -->
+        <a class="btn btn-danger" href="/vehicles/delete/<%- vehicle.id %>">Delete</a>
+        </div>
+        <div class="col-md-4">
+        <img class="vehicle-image" src="/images/<%- vehicle.picture %>">
+        </div>
+        </div>
+    </li>
+</ul>
+<!-- Vehicle details -->
+<!-- Form -->
+<form method="post" action="/vehicles">
+<div class="form-group">
+<!-- Container End -->
+<footer>
+<ul>
+<li><a href="/">Home</a></li>
+<li><a href="/custom">Custom</a></li>
+<li><a href="/sedan">Sedan</a></li>
+<li><a href="/suv">SUV</a></li>
+<li><a href="/truck">Truck</a></li>
+<li><a href="/generate-error">Error Trigger</a></li>
+</ul>
+</footer>

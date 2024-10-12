@@ -39,4 +39,25 @@
         </ul>
     </div>
 </div>
+<% if (vehicles) { %>
+    <% vehicles.forEach(function(vehicle) { %>
+        
+        <div class="car-item">
+            <img src="/images/vehicles/<%= vehicle.picture %>" alt="<%= vehicle.name %>">
+            <h3><%= vehicle.name %></h3>
+            <div class="description"><%= vehicle.description %></div>
+            <div class="year"><%= vehicle.year %></div>
+            <div class="type"><%= vehicle.type %></div>
+            <div class="price"><%= vehicle.price %></div>
+        </div>
+    <% }) %>
+  <% } %>
+<% include "partials/footer.ejs" %>
 
+
+<ul>
+    <li>
+    <a href="/generate-error">Error Trigger</a>
+    </li>
+</ul>
+    
