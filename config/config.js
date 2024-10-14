@@ -1,5 +1,4 @@
 // config/config.js file
-//  In the above code, you should replace "username", "password", "hostname", and "5432" with the values provided by render.com.
 module.exports = {
       development: {
         database: 'cse340',

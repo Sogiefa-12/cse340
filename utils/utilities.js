@@ -1,6 +1,7 @@
 // utilities.js file
 const { handleErrors } = require(".")
 const vehicle = require("../models/database/vehicleModel")
+
 // Build vehicle view object for inventory view
 utilities.buildVehicleView = async function (data) {
 const makeModel = data.inv_make + " " + data.inv_model

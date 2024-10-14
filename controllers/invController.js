@@ -1,6 +1,7 @@
 const invModel = require("../models/database/invModel")
 const utilities = require("../utils/utilities")
 const invValidate = require("../utils/inventory-validation")
+
 invCont.buildByVehicleId = async function (req, res, next) {
     const inv_id = req.params.invId
     const data = await invModel.getVehicleByInvId(inv_id)
