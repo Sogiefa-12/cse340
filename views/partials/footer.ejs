@@ -1,5 +1,26 @@
 <% const d = new Date()
 let year = d.getFullYear() %>
 <footer>
-    <p class="copyright">&copy; <%= year %>, CSE 340 App</p>
-    </footer>
+<p class="copyright">&copy; <%= year %>, CSE 340 App</p>
+<form action="/inventory/vehicle">
+<div class="search-box">
+<div class="row">
+<div class="col-md-4">
+    <label for="search-query">Search by Make/Model/Type:</label>
+<input type="text" class="form-control" id="search-query" placeholder="Search by Make/Model/Type...">
+</div>
+<div class="col-md-4">
+    <label for="price-min">Price Range:</label>
+    <input type="number" class="form-control" id="price-min" placeholder="Price Range...">
+</div>
+<div class="col-md-4">
+    <label for="price-max">to</label>
+    <input type="number" class="form-control" id="price-max" placeholder="Price Range...">
+</div>
+<div class="col-md-12">
+<button type="submit" class="btn btn-primary">Search</button>
+</div>
+</div>
+</div>
+</form>
+</footer>

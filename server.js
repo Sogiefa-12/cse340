@@ -5,26 +5,12 @@
 /* ***********************
  * Require Statements
  *************************/
-const express = require("express");
-
-const ejs = require("ejs");
-const app = express();
-const expressLayouts =
-require("express-ejs-layouts")
-const env = require("dotenv").config()
-const static = require("./routes/static");
-const utils= require("./utils/index");
-const path = require("path");
-const baseController = require("./controllers/baseController");
-const vehicleController = require("./controllers/vehicleController");
-const formController = require("./controllers/formController");
-const errorController = require("./controllers/errorController");
-const router = require('./utils/index').router;
-const {handleErrors} = utils
-app.use(vehicleController.all());
-app.use(bodyParser.urlencoded({ extended: true }))
-
-
+const express = require("express")
+const router = new express.Router()
+const invController = require("./controllers/invController")
+const utilities = require("..utils/utilities")
+const { connectToDb, handleErrors} = require('./utils/utilities');
+const invValidate = require("../utils/inventory-validation")
 
 
 /* ***********************
@@ -32,10 +18,12 @@ app.use(bodyParser.urlencoded({ extended: true }))
  *************************/
 app.set("view engine", "ejs")
 app.use(expressLayouts)
-// app.set("layout", "./layouts/layout") // not at views root
+app.set("layout", "./layouts/layout") // not at views root
 app.set("layout", path.join(__dirname, "views", "layouts", "layout.ejs"));
-
-// app.set("views", path.join(__dirname, "."));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+// Connect to database
+const db = connectToDb();
 
 const title = 'CSE 340 App'
 app.use((req, res, next) => {
@@ -46,50 +34,32 @@ app.use((req, res, next) => {
  * Routes
  *************************/
 app.use(static)
-app.use(router);
+app.use('/inv', router);
 // Index route
 // app.get('/', baseController.buildHome)
 app.get("/", function(req, res){
   res.render("index", {title: "Home"})
 })
-app.get('/sedan', vehicleController.sedan);
-app.get('/suv', vehicleController.suv);
-app.get('/truck', vehicleController.truck);
 
+// Route to vehicle management page
+router.get('/', utilities.checkLogin, utilities.checkUserLevel, utilities.handleErrors(invController.showManagementPage));
 
-app.post("/vehicles", formController.vehiclesUpdate);
+// Route to build inventory by classification view
+router.get(
+  "/type/:classificationId",
+  utilities.handleErrors(invController.buildByClassificationId)
+)
 
-//app.get('/generate-error', errorController.generateError)
-
-// Delete vehicle route
-app.get('/vehicles/delete/:id', (req, res) => {
-  const vehicleId = req.params.id
-vehicleController.delete(vehicleId)
-    .then(() => {
-      res.redirect("/vehicles")
-    })
-    .catch((err) => {
-      console.error(err)
-      
-  res.status(500).render('error', {
-      title: 'Oops, something went wrong!',
-      message: "An error has occurred. Please try again later."
-    });
-  });
-});
-
-
-// app.use(utils.handleErrors);
-// // File Not found Route - must be last route
-// app.use(async (req, res, next) => {
-//   next({status: 404, message: 'Sorry, we appear to have lost that page.'})
-// })
+//Route to vehicle detail page
+router.get(
+  "/detail/:invId",
+  utilities.handleErrors(invController.buildByVehicleId)
+)
 
  /* ***********************
 * Express Error Handler
 * Place after all other middleware
 *************************/
-
 // Handle errors
 app.use(async (err, req, res, next) => {
   console.error(`Error at: "${req.originalUrl}": ${err.message}`);
@@ -98,7 +68,7 @@ app.use(async (err, req, res, next) => {
   } else {
     message = "Oh no! There was a crash. Maybe try a different route?";
   }
-  const nav = await utils;
+  const nav = utils.getNav();
   res.render("errors/error", {
     title: err.status || "Server Error",
     message,
@@ -122,8 +92,6 @@ if(err.message === 'Error generated') {
   }
   });
 
-
-  /* *
 /* ***********************
  * Local Server Information
  * Values from .env (environment) file

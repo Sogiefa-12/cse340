@@ -24,8 +24,8 @@ importers:
         specifier: ^8.13.0
         version: 8.13.0
       sequelize:
-        specifier: ^6.37.4
-        version: 6.37.4(pg@8.13.0)
+        specifier: 6.31.0
+        version: 6.31.0(pg@8.13.0)
     devDependencies:
       nodemon:
         specifier: ^3.1.0
@@ -476,8 +476,8 @@ packages:
     resolution: {integrity: sha512-G9c0qlIWQSK29pR/5U2JF5dDQeqqHRragoyahj/Nx4KOOQ3CPPfzxnfqFPCSB7x5UgjOgnZ61nSxz+fjDpRlJg==}
     engines: {node: '>= 10.0.0'}
 
-  sequelize@6.37.4:
-    resolution: {integrity: sha512-+8B0p00EKmxJpwwruDI0drxh4wNSC0YB9pVhOajRzfMI+uIDi5V7rJPC8RTTkLmKUoAIatJZn6lW9gj6bmmYKQ==}
+  sequelize@6.31.0:
+    resolution: {integrity: sha512-nCPVtv+QydBmb3Us2jCNAr1Dx3gST83VZxxrUQn/JAVFCOrmYOgUaPUz5bevummyNf30zfHsZhIKYAOD3ULfTA==}
     engines: {node: '>=10.0.0'}
     peerDependencies:
       ibm_db: '*'
@@ -1049,7 +1049,7 @@ snapshots:
 
   sequelize-pool@7.1.0: {}
 
-  sequelize@6.37.4(pg@8.13.0):
+  sequelize@6.31.0(pg@8.13.0):
     dependencies:
       '@types/debug': 4.1.12
       '@types/validator': 13.12.2

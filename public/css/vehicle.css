@@ -1,0 +1,76 @@
+
+/* Small screen */
+@media (max-width: 768px) {
+    .vehicle-details {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    }
+    .make-model {
+    width: 100%;
+    padding: 15px;
+    }
+    .type-price {
+    width: 100%;
+    padding: 15px;
+}
+.availability {
+width: 100%;
+padding: 15px;
+}
+.date-range {
+width: 100%;
+padding: 15px;
+}
+.odometer {
+width: 100%;
+padding: 15px;
+}
+.address {
+width: 100%;
+padding: 15px;
+}
+}
+/* Large screen */
+@media (min-width: 769px) {
+.vehicle-details {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 15px;
+    }
+.make-model {
+    width: 33.33%;
+    padding: 15px;
+    }
+.type-price {
+    width: 33.33%;
+    padding: 15px;
+    }
+.availability {
+    width: 33.33%;
+    padding: 15px;
+    }
+.date-range {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 33.33%;
+    padding: 15px;
+}
+.odometer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 33.33%;
+    padding: 15px;
+    }
+.address {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 33.33%;
+    padding: 15px;
+    }
+}

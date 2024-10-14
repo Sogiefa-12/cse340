@@ -1,4 +1,5 @@
-const VehicleModel = require('../models/database/vehicleModel')
+//vehicle.js file
+//const VehicleModel = require('../models/database/vehicleModel')
 
 exports.find = async () => {
   return await VehicleModel.find()

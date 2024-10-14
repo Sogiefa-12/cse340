@@ -36,7 +36,7 @@ module.exports = {
     } else {
       message = "Oh no! There was a crash. Maybe try a different route?";
     }
-    const nav = utils.buildNav();
+    const nav = utils.getNav();
     res.render("errors/error", {
       title: err.status || "Server Error",
       message,

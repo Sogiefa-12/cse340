@@ -1,30 +1,77 @@
-const express = require('express')
-const router = express.Router()
-
-//GET vehicles
+// Load modules
+const express = require('express');
+const router = express.Router();
+const { query, save } = require('../models/database/invModel');
+// GET home page
+router.get('/', (req, res) => {
+res.render('index');
+});
+// GET vehicle list
 router.get('/vehicles', (req, res) => {
-  //retrieve all vehicles from the database
-Vehicle.findAll().then(vehicles => {
-    
-    res.send(vehicles)
-    })
-    })
-
-//GET vehicle detail
+query()
+.then(vehicles => {
+    res.render('vehicles', {
+        title: 'Vehicles',
+        vehicles
+        });
+        })
+        .catch(err => {
+        res.status(500).send(err);
+        });
+});
+// GET vehicle details
 router.get('/vehicle/:id', (req, res) => {
-const id = req.params.id
-Vehicle.findByPk(id).then(vehicle => {
+    query(req.params.id)
+    .then(vehicle => {
+        if (!vehicle) {
+        res.status(404).send('Vehicle not found');
+        } else {
+        res.render('vehicle', {
+        title:` ${vehicle.name} Details, ${vehicle}`
+
+         })
+    }
+    })
+    .catch(err => {
+        res.status(500).send(err);
+    });
+});
     
-    res.send(vehicle)
-    })
-    })
+// GET 404 page
+router.get('*', (req, res) => {
+    res.status(404).render('404');
+    });
+    // POST to save vehicle
+    router.post('/vehicles', (req, res) => {
+    const vehicle = {  
+        ...req.body.vehicle,
+        year: req.body.vehicle.year
+        };
+        save(vehicle)
+        .then(savedVehicle => {
+            res.redirect('/vehicles');
+        })
+    .catch(err => {
+        res.status(500).send(err);
+    });
+});  
 
-//POST new vehicle
-router.post('/vehicle', (req, res) => {
-const newVehicle = req.body
-    Vehicle.create(newVehicle).then(newVehicle => {
-    res.send(newVehicle)
-  })
+// GET search and filter vehicles
+router.get('/inventory/vehicle', (req, res) => {
+    const params = {
+        searchQuery: req.query.searchQuery,
+        priceMin: req.query.priceMin,
+        priceMax: req.query.priceMax
+        };
+        query(params)
+        .then(vehicles => {
+        res.render('index', {
+        title: 'Search Results',
+        vehicles
+    })
 })
-
-module.exports = router
+.catch(err => {
+res.status(500).send(err);
+});
+});
+module.exports = router;

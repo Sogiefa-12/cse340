@@ -1,16 +1,13 @@
-const Sequelize = require('sequelize')
-// const db = require('../../config/config')
+// database/vehicleModel.js File
+//const Sequelize = require('sequelize');
+//const config = require('../../config/config');
+//const db = new Sequelize(config);
 
-const db = new Sequelize({
-    dialect: 'postgres',
-    host: 'dpg-crt9o6d6l47c73d8omdg-a.oregon-postgres.render.com',
-    port: 5432,
-    username: 'postgres',
-    password: 'Hw2fbkG0CYPI35e76DrifqpsAcVMzZXj',
-    database: 'cse340',
-    // other Sequelize options here
+// Initialize sequelize object
+db = new Sequelize({
+    dialect: "postgres", // or "mysql", "sqlite", etc.
+    // other options here...
   });
-
 
 const Vehicle = db.define('vehicle', {
     
