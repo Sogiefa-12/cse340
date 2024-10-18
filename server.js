@@ -18,7 +18,7 @@ const static = require("./routes/static")
 const utilities = require("./utilities/")
 const path = require("path")
 const inventoryRoute = require("./routes/inventoryRoute")
-const secret = "SarahOgiefaChristabelOsas"
+
 
 /* ***********************
  * View Engine and Templates
