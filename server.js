@@ -18,6 +18,7 @@ const static = require("./routes/static")
 const utilities = require("./utilities/")
 const path = require("path")
 const inventoryRoute = require("./routes/inventoryRoute")
+const secret = "SarahOgiefaChristabelOsas"
 
 /* ***********************
  * View Engine and Templates
@@ -32,6 +33,20 @@ app.use((req, res, next) => {
   next()
 })
 
+
+/* ***********************
+ * Middleware
+ * ************************/
+app.use(session({
+  store: new (require('connect-pg-simple')(session))({
+    createTableIfMissing: true,
+    pool,
+  }),
+  secret: process.env.SESSION_SECRET,
+  resave: true,
+  saveUninitialized: true,
+  name: 'sessionId',
+}))
 
 /* ***********************
  * Routes
@@ -71,19 +86,6 @@ app.use(async (req, res, next) => {
   next({status: 404, message: 'Sorry, we appear to have lost that page.'})
 })
 
-/* ***********************
- * Middleware
- * ************************/
-app.use(session({
-  store: new (require('connect-pg-simple')(session))({
-    createTableIfMissing: true,
-    pool,
-  }),
-  secret: process.env.SESSION_SECRET,
-  resave: true,
-  saveUninitialized: true,
-  name: 'sessionId',
-}))
 
 /* ***********************
 * Express Error Handler
