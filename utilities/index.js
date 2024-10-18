@@ -58,7 +58,27 @@ Util.buildClassificationGrid = async function(data){
       grid += '<p class="notice">Sorry, no matching vehicles could be found.</p>'
     }
     return grid
-  }
+}
+
+    /* ****************************************
+ * Middleware For Handling Errors
+ * Wrap other function in this for 
+ * General Error Handling
+ **************************************** */
+Util.handleErrors = fn => (req, res, next) => Promise.resolve(fn(req, res, next)).catch(next);
+
+
+Util.formatVehicleInfo = (vehicleInfo) => {
+    const formattedHTML = `
+      <h1>${vehicleInfo.make} ${vehicleInfo.model}</h1>
+      <h2>Price: ${new Intl.NumberFormat('en-US').format(vehicleInfo.price)}</h2>
+      <h2>Mileage: ${new Intl.NumberFormat('en-US').format(vehicleInfo.mileage)}</h2><hr/>
+    <p>${vehicleInfo.description}</p>
+  `
+  return formattedHTML
+}
+
+  
 
 
 

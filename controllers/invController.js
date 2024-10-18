@@ -18,4 +18,17 @@ invCont.buildByClassificationId = async function (req, res, next) {
     grid,
   })
 }
+
+invCont.getInventoryDetail = async (req, res, next) => {
+  let invId = req.params.id
+let invData = await invModel.getInventoryDetail(inv_Id)
+  if(invData){
+    res.status(200).render('./inventory/detail', {
+      inv: invData
+    })
+  } else {
+    res.status(404).render('error')
+  }
+}
+
 module.exports = invCont

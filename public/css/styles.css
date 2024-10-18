@@ -226,44 +226,6 @@ footer{
   
 }
 
-.custom-container,
-.sedan-container,
-.suv-container,
-.truck-container {
-  margin: 0 2rem 0 0;
-  min-width: calc(33% - 1rem);
-  border: 1px solid #ccc;
-  padding: 1rem;
-  display: flex;
-  flex-direction: column;
-}
-.car-images {
-  flex-direction: row;
-  justify-content: center;
-  margin-bottom: 1rem;
-}
-
-.car-image {
-  width: 140px;
-  height: 100px;
-}
-
-.car-details {
-  flex-direction: column;
-  align-items: center;
-  margin-bottom: 1rem;
-}
-
-.car-name {
-  font-size: 1.2rem;
-  margin-bottom: 0.5rem;
-}
-
-.car-description,
-.car-price {
-  font-size: 0.9rem;
-}
-
 /* Media queries */
 @media screen and (max-width: 600px) {
   /* Adjust styles for larger screens */
@@ -294,7 +256,7 @@ footer{
 
   .nav ul li {
     margin: 10px 0;
-    font-weight: 400;
+    font-weight: 100;
     justify-content: space-around;
   }
 
@@ -311,20 +273,6 @@ footer{
   }
   
 
-  .car-details {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-  .car-images {
-    flex-direction: column;
-  }
-
-  .car-container {
-    width: 100%;
-  }
-  .nav-bar {
-    flex-direction: column;
-  }
   .nav-item {
     margin-right: 0;
     margin-bottom: 1rem;
@@ -357,4 +305,16 @@ footer{
   .reviews{
     margin-top: 60px;
   }
+}
+
+#inv-display {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+#inv-display li {
+  flex: 1 0 25%;
+  margin: 10px;
+  text-align: center;
+  list-style-type: none;
 }

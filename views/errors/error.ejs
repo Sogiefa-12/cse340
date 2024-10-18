@@ -1,5 +1,4 @@
-
-<% if (err.status) { %>
+<% if (err && err.status) { %>
   Error: <%= err.status %>
 <% } %>
 <%= message %>

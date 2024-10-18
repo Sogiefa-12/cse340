@@ -25,8 +25,13 @@ async function getInventoryByClassificationId(classification_id) {
   }
 }
 
+const getInventoryDetail = async (id) => {
+  const query = "SELECT * FROM public.inventory WHERE  inv_id= ?"
+const [result] = await pool.query(query, [id])
+  return result[0]
+}
 
-module.exports = {getClassifications, getInventoryByClassificationId}
+module.exports = {getClassifications, getInventoryByClassificationId, getInventoryDetail}
 
 
 

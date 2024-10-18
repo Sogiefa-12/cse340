@@ -1,0 +1,17 @@
+<%# content for /inventory/detail%>
+<% title = "" %>
+
+<div class="container">
+  <h1> <%
+  if (title) {
+    %><%= title %>
+    <% } else {
+      res.redirect('/')
+    } %>
+    </h1>
+
+    <h2>Price: <%= new Intl.NumberFormat('en-US').format(formatVehicleInfo(carInfo).price) %></h2>
+    <h2>Mileage: <%= new Intl.NumberFormat('en-US').format(formatVehicleInfo(carInfo).mileage) %></h2>
+    <hr/>
+    <p><%= carInfo %></p>
+</div>
