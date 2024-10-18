@@ -226,7 +226,43 @@ footer{
   
 }
 
+.custom-container,
+.sedan-container,
+.suv-container,
+.truck-container {
+  margin: 0 2rem 0 0;
+  min-width: calc(33% - 1rem);
+  border: 1px solid #ccc;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+}
+.car-images {
+  flex-direction: row;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
 
+.car-image {
+  width: 140px;
+  height: 100px;
+}
+
+.car-details {
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.car-name {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+
+.car-description,
+.car-price {
+  font-size: 0.9rem;
+}
 
 /* Media queries */
 @media screen and (max-width: 600px) {
@@ -274,6 +310,35 @@ footer{
     margin-right: 15px;
   }
   
+
+  .car-details {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .car-images {
+    flex-direction: column;
+  }
+
+  .car-container {
+    width: 100%;
+  }
+  .nav-bar {
+    flex-direction: column;
+  }
+  .nav-item {
+    margin-right: 0;
+    margin-bottom: 1rem;
+  }
+  .nav-container {
+    margin-top: 2rem;
+    display: none;
+  }
+
+  .nav-menu {
+    display: block;
+    text-align: center;
+  }
+
 
   
 }

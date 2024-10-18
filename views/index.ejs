@@ -39,25 +39,41 @@
         </ul>
     </div>
 </div>
-<% if (vehicles) { %>
-    <% vehicles.forEach(function(vehicle) { %>
-        
-        <div class="car-item">
-            <img src="public/images/vehicles/<%= vehicle.picture %>" alt="<%= vehicle.name %>">
-            <h3><%= vehicle.name %></h3>
-            <div class="description"><%= vehicle.description %></div>
-            <div class="year"><%= vehicle.year %></div>
-            <div class="type"><%= vehicle.type %></div>
-            <div class="price"><%= vehicle.price %></div>
-        </div>
-    <% }) %>
-  <% } %>
-<% include "partials/footer.ejs" %>
 
+<div class="custom-container">
+    <div class="car-images">
+    <!-- add image tags here -->
+</div>
+<div class="car-details">
+        <span class="car-name"></span>
+        <span class="car-description"></span>
+</div>
 
-<ul>
-    <li>
-    <a href="/generate-error">Error Trigger</a>
-    </li>
-</ul>
-    
+<div class="sedan">
+    <div class="car-images">
+    <!-- add image tags here -->
+</div>
+<div class="car-details">
+        <span class="car-name"></span>
+        <span class="car-description"></span>
+</div>
+
+<div class="suv-container">
+    <div class="car-images">
+    <!-- add image tags here -->
+</div>
+<div class="car-details">
+        <span class="car-name"></span>
+        <span class="car-description"></span>
+</div>
+
+<div class="truck-container">
+    <div class="car-images">
+    <!-- add image tags here -->
+</div>
+<div class="car-details">
+        <span class="car-name"></span>
+        <span class="car-description"></span>
+</div>
+
+<!-- <script src="inventory/inventory.js"></script> -->

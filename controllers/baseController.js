@@ -1,17 +1,9 @@
-// controllers/baseController.js
-// const utils= require('./utils/index');
+const utilities = require("../utilities/")
+const baseController = {}
 
-const baseController = {
-    buildHome: async function(req, res, next) {
-        try {
-            const nav = navigation
-            res.render("index", {title: "Home", nav:nav})
-            } 
-        catch (err) {
-            next(err)
-        } 
-    }
-};
-module.exports = baseController;
+baseController.buildHome = async function(req, res){
+  const nav = await utilities.getNav()
+  res.render("index", {title: "Home", nav})
+}
 
-
+module.exports = baseController
