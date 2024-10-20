@@ -9,7 +9,8 @@ accountsController = require("../controllers/accountsController")
 //     accountsController.buildLogin(req, res, next)
 // }))
 
-router.get("/account", (req, res, next) => {
+router.get("/account", (req, res, next) => {s
+    console.log("router.get() called")
     accountsController.buildLogin(req, res, next)
   })
   
