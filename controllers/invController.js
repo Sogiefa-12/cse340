@@ -25,7 +25,7 @@ invCont.getInventoryDetail = async function (req, res, next) {
       let inv_id = req.params.id
       let invData = await invModel.getInventoryDetail(inv_id)
       if(invData){
-        res.status(200).render('views/inventory/detail', {
+        res.status(200).render('./inventory/detail', {
           inv: invData
         })
       } else {

@@ -67,7 +67,7 @@ app.get("/", baseController.buildHome)
 // Inventory routes
 app.use("/inv", inventoryRoute)
 
-app.use("/account", accountRoutes)
+app.use("/accounts", accountRoutes)
 // Home page route
 app.get("/", async (req, res) => {
   try {
