@@ -12,7 +12,7 @@ Vehicle.findAll().then(vehicles => {
     })
 
 //GET vehicle detail
-router.get('/vehicle/:id', (req, res) => {
+router.get('/vehicles/:id', (req, res) => {
 const id = req.params.id
 Vehicle.findByPk(id).then(vehicle => {
     

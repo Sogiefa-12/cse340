@@ -25,11 +25,18 @@ async function getInventoryByClassificationId(classification_id) {
   }
 }
 
-const getInventoryDetail = async (id) => {
-  const query = "SELECT * FROM public.inventory WHERE  inv_id= ?"
-const [result] = await pool.query(query, [id])
-  return result[0]
+function getInventoryDetail(id) {
+  const result = pool.query(`SELECT * FROM public.inventory`);
+  const inventory = result.rows;
+  const filteredInventory = inventory.filter(item => item.inv_id === id);
+  if (filteredInventory.length > 0) {
+    return filteredInventory[0];
+  } else {
+    return null;
+  }
 }
+
+
 
 module.exports = {getClassifications, getInventoryByClassificationId, getInventoryDetail}
 

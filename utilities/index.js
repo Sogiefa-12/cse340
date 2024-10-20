@@ -65,7 +65,11 @@ Util.buildClassificationGrid = async function(data){
  * Wrap other function in this for 
  * General Error Handling
  **************************************** */
-Util.handleErrors = fn => (req, res, next) => Promise.resolve(fn(req, res, next)).catch(next);
+
+// This function handles errors from the wrapped function.
+Util.handleErrors = fn => (req, res, next) => {
+  return Promise.resolve(fn(req, res, next)).catch(next);
+};
 
 
 Util.formatVehicleInfo = (vehicleInfo) => {
