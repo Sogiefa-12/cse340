@@ -18,7 +18,8 @@ const static = require("./routes/static")
 const utilities = require("./utilities/")
 const path = require("path")
 const inventoryRoute = require("./routes/inventoryRoute")
-const accountRoutes = require("./routes/accountRoute")
+const accountsRoute = require("./routes/accountsRoute")
+const accountsController = require("../controllers/accountsController")
 
 
 /* ***********************
@@ -64,10 +65,13 @@ app.use(static)
 // Index route
 app.get("/", baseController.buildHome)
 
+// app.get("/", invController.getInventoryDetail )
+
+// app.get("./account", accountsController.buildLogin)
 // Inventory routes
 app.use("/inv", inventoryRoute)
 
-app.use("/accounts", accountRoutes)
+app.use("/account", accountsRoute)
 // Home page route
 app.get("/", async (req, res) => {
   try {

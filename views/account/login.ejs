@@ -1,12 +1,12 @@
-<%= Login %>
-
-<% if (flash.message) { %>
-    
-<%= flash.message %>
+<%= title %>
+<% if (flash.error) { %>
+  <div class="alert alert-danger">
+    <%= flash.error %>
+  </div>
 <% } %>
 
 
-<form method="post" form="post" action="/account">
+<form method="get" form="get" action="/account">
 
     <label for="account_email">Email address:</label>
     <input type ="email" name="account_email">

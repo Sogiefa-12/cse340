@@ -1,6 +1,6 @@
-// routes/routes.js
-//const express = require('express')
-//const router = express.Router()
+//routes/routes.js
+const express = require('express')
+const router = express.Router()
 
 //GET vehicles
 router.get('/vehicles', (req, res) => {
@@ -13,8 +13,8 @@ Vehicle.findAll().then(vehicles => {
 
 //GET vehicle detail
 router.get('/vehicles/:id', (req, res) => {
-const id = req.params.id
-Vehicle.findByPk(id).then(vehicle => {
+const inv_id = req.params.id
+Vehicle.findByPk(inv_id).then(vehicle => {
     
     res.send(vehicle)
     })
