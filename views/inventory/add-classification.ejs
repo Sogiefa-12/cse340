@@ -1,0 +1,19 @@
+
+<form method="post">
+    <label for="classification_name">Classification Name:</label>
+    <input type="text" name="classification_name" id="classification_name" required>
+    <p>Classification name must not contain spaces or special characters.</p>
+    <button type="submit">Add Classification</button>
+</form>   
+
+<script type="text/javascript">
+function validateForm() {
+    var classificationName = document.getElementById("classification_name").value;
+    if (classificationName.length === 0 ||
+    classificationName.match(/[^\w]/)) {
+        alert("Classification name must not contain spaces or special characters.");
+    return false;
+    }
+    return true;
+}
+</script>

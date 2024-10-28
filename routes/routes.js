@@ -1,4 +1,4 @@
-//routes/routes.js
+routes/routes.js
 const express = require('express')
 const router = express.Router()
 
@@ -11,17 +11,20 @@ Vehicle.findAll().then(vehicles => {
     })
     })
 
-//GET vehicle detail
-router.get('/vehicles/:id', (req, res) => {
-const inv_id = req.params.id
-Vehicle.findByPk(inv_id).then(vehicle => {
+// //GET vehicle detail
+// router.get('/vehicles:id', (req, res) => {
+//   console.log("log route: ")
+//   const inventoryId = req.params.id
+// Vehicle.findByPk(inventoryId).then(vehicle => {
     
-    res.send(vehicle)
-    })
-    })
+//     res.send(vehicle)
+//     })
+//     })
+
+
 
 //POST new vehicle
-router.post('/vehicle', (req, res) => {
+router.post('/inventory', (req, res) => {
 const newVehicle = req.body
     Vehicle.create(newVehicle).then(newVehicle => {
     res.send(newVehicle)

@@ -15,11 +15,17 @@ const invController = require("./controllers/invController")
 const pool = require('./database/');
 const app = express()
 const static = require("./routes/static")
-const utilities = require("./utilities/")
+const utilities = require("./utilities/index")
+const bodyParser = require("body-parser")
 const path = require("path")
 const inventoryRoute = require("./routes/inventoryRoute")
 const accountsRoute = require("./routes/accountsRoute")
-const accountsController = require("../controllers/accountsController")
+
+
+
+// bodyParser
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
 
 
 /* ***********************
@@ -44,6 +50,7 @@ app.use(function(req, res, next){
   next()
 })
 
+
 /* ***********************
  * View Engine and Templates
  *************************/
@@ -57,6 +64,16 @@ app.use((req, res, next) => {
   next()
 })
 
+// // Define nav variable with your navigation data
+// const nav = [
+//   { text: 'Home', url: '/' },
+//   { text: 'Inventory', url: '/inventory' },
+//   // Add more navigation items as needed
+// ];
+
+app.locals.Util = utilities;
+
+// app.locals.nav = nav;
 
 /* ***********************
  * Routes
@@ -65,12 +82,14 @@ app.use(static)
 // Index route
 app.get("/", baseController.buildHome)
 
-// app.get("/", invController.getInventoryDetail )
+// app.get("/inv", invController.getInventoryDetail )
 
-// app.get("./account", accountsController.buildLogin)
+
+
 // Inventory routes
 app.use("/inv", inventoryRoute)
 
+// Account Routes
 app.use("/account", accountsRoute)
 // Home page route
 app.get("/", async (req, res) => {
@@ -92,6 +111,16 @@ app.use(async (req, res, next) => {
 * Express Error Handler
 * Place after all other middleware
 *************************/
+app.use(async (err, req, res, next) => {
+  try {
+    const nav = await utilities
+    res.status(500);
+    res.render("errors/error", { err, message: err.message, nav });
+  } catch (err) {
+    console.error("Error in error handling middleware:", err.message);
+    res.sendStatus(500);
+  }
+});
 app.use(async (err, req, res, next) => {
   let nav = await utilities
   const errType = typeof err.message

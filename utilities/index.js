@@ -26,6 +26,21 @@ Util.getNav = async function (req, res, next) {
 }
 
 
+/* ****************************************
+ * Update the navigation bar with the newly added classification
+ * **************************************** */
+Util.updateNav = async function (currentNavigation, classification) {
+  // Add the new classification to the navigation items
+  const newItem = {
+    title: classification.classification_name,
+    url: `/inventory/classification/${classification.classification_id}`
+  };
+  currentNavigation.items.push(newItem);
+
+  // Return the updated navigation object
+  return currentNavigation;
+};
+
 
 /* **************************************
 * Build the classification view HTML
@@ -71,20 +86,27 @@ Util.handleErrors = fn => (req, res, next) => {
   return Promise.resolve(fn(req, res, next)).catch(next);
 };
 
+Util.formatVehicleDetail = (vehicleDetail) => {
+  const price = vehicleDetail.inv_price
+    ? new Intl.NumberFormat('en-US').format(vehicleDetail.inv_price)
+    : '';
 
-Util.formatVehicleInfo = (vehicleInfo) => {
-    const formattedHTML = `
-      <h1>${vehicleInfo.make} ${vehicleInfo.model}</h1>
-      <h2>Price: ${new Intl.NumberFormat('en-US').format(vehicleInfo.price)}</h2>
-      <h2>Mileage: ${new Intl.NumberFormat('en-US').format(vehicleInfo.mileage)}</h2><hr/>
-    <p>${vehicleInfo.description}</p>
-  `
-  return formattedHTML
-}
+  const miles = vehicleDetail.inv_miles
+    ? vehicleDetail.inv_miles.toLocaleString('en-US')
+    : '';
 
-  
-
-
-
+  return `
+    <h1>${vehicleDetail.inv_make} ${vehicleDetail.inv_model}</h1>
+    <div><img src="${vehicleDetail.inv_image}" alt="${vehicleDetail.inv_make} ${vehicleDetail.inv_model}" /></div>
+    <div>
+      <p>Make: ${vehicleDetail.inv_make}</p>
+      <p>Model: ${vehicleDetail.inv_model}</p>
+      <p>Year: ${vehicleDetail.inv_year}</p>
+      <p>Price: $${price}</p>
+      <p>Mileage: ${miles}</p>
+      <p>Description: ${vehicleDetail.inv_description}</p>
+    </div>
+  `;
+};
 
 module.exports = Util

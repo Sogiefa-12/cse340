@@ -2,7 +2,8 @@
 const express = require("express")
 const router = new express.Router() 
 const invController = require("../controllers/invController")
-const Util = require("../utilities/index")
+const utilities = require("../utilities/index")
+const validate = require('express-validator');
 // // // Route to build inventory by classification view
 router.get("/type/:classificationId", invController.buildByClassificationId);
 
@@ -13,19 +14,45 @@ router.get("/type/:classificationId", invController.buildByClassificationId);
 // ************************** */
 
 // Route to build single inventory view
-router.get("/inv/type/:id", Util.handleErrors((req, res, next) => {
-  invController
-  .getInventoryDetail(req.params.id)
-  .then((data) => {
-  const html = Util.formatVehicleInfo(data)
-  res.render("../inventory/detail", {
-    title: data.make + " " + data.model,
-    carInfo: html
-})
-})
-.catch(next)
-}))
+router.get("/detail/:id", invController.getVehicleDetail);
+
+// Render management view
+router.get("/management", invController.management);
+
+
+// // Add inventory item GET route
+// router.get("/add-inventory-item", invController.addInventoryItem);
+
+// Add classification GET route
+router.get("/add-classification", async(req, res) => {
+  let nav = await utilities.getNav();
+  res.render("inventory/add-classification", {
+    nav
+  });
+});
+
+// Add inventory item GET route
+router.get("/add-inventory-item", async(req, res) => {
+  let nav = await utilities.getNav();
+  res.render("inventory/add-inventory-item", {
+    nav
+  });
+});
+
+router.post("/add-inventory-item", invController.addInventoryItem);
+
+
+// Add classification POST route with validation rules
+router.post(
+  "/add-classification",
+  invController.addClassification
+);
+
 
 
 
 module.exports = router
+
+
+
+

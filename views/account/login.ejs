@@ -1,20 +1,24 @@
 <%= title %>
-<% if (flash.error) { %>
+<% if (locals.messages.error) { %>
   <div class="alert alert-danger">
-    <%= flash.error %>
+    <%= res.locals.messages.error %>
   </div>
+  <%- messages %>
 <% } %>
 
+<form method="post" form="post" action="/account/login" class="form-group">
 
-<form method="get" form="get" action="/account">
+  <div class="form-group">
+    <label for="account_email" class="control-label">Email address:</label>
+    <input type ="email" name="account_email" class="form-control" autocomplete="username" required>
 
-    <label for="account_email">Email address:</label>
-    <input type ="email" name="account_email">
-
-    <label for="account_password">Password:</label>
-    <input type="password" name="account_password">
-
-
-    <button type="submit">Login</button>
+    <label for="account_password" class="control-label">Password:</label>
+    <span class="password-requirements">
+      Password must be a minimum of 12 characters and must contain 1 number, 1 capital letter and 1 special character.
+      </span> 
+    <input type="password" name="account_password" class="form-control" autocomplete="current-password" required pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$">
+    <button type="submit" class="btn btn-primary">Login</button>
+    <p><a href="/account/register" class="btn btn-link">Don't have an account? <i class="fa fa-arrow-right"></i> Sign Up Now</a></p>
+   
+  </div>
 </form>
-<p>Don't have an account? <a href="#">Sign Up Now</a></p>

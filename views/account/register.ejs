@@ -1,0 +1,44 @@
+<% if(title) { %>
+    <h1><%= title %></h1>
+    <%} else { res.redirect('/')} %>
+    
+
+<p><%= locals.messages.error %></p> 
+
+<% if (errors)  { %>
+<ul class="notice">
+    <% errors.array().forEach(error => {%>
+    <li><% error.msg %></li>
+<%}) %>
+</ul>
+<%} %>
+
+<div class="register">
+    <div class="container">
+       
+        <form method="post" action="/account/register">
+            <div class="form-group">
+                <label for="account_firstname" class="control-label">First Name:</label>
+                <input type="text" name="account_firstname" class="form-control" required value="<%= locals.account_firstname %>">
+                <label for="account_lastname" class="control-label">Last Name:</label>
+                <input type="text" name="account_lastname" class="form-control" required value="<%= locals.account_firstname %>">
+                <label for="account_email" class="control-label">Email:</label>
+                <input type="email" name="account_email" class="form-control" required value="<%= locals.account_firstname %>">
+                <label for="account_password" class="control-label">Password:</label>
+                <span class="password-requirements">
+                    Password must be a minimum of 12 characters and must contain 1 number, 1 capital letter and 1 special character.
+                    </span> 
+                <input type="password" name="account_password" class="form-control" id="pword" autocomplete="new-password" required pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$">
+                <span id="pswdBtn">Show Password</span>
+                <label for="confirmPassword" class="control-label">Confirm Password:</label>
+                <input type="password" name="confirmPassword" class="form-control" id="displayword" autocomplete="new-password" required>
+                <span id="displayBtn">Show Password</span>
+               
+                <button type="submit" class="btn-primary">Register</button>
+          </div>
+         
+        </form>
+    </div>
+    <!-- <script src="register.js"></script> -->
+   
+</div>

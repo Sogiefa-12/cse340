@@ -1,17 +1,8 @@
-<%# content for /inventory/detail%>
-<% title = "Car Details" %>
+<%# content for /inventory/detail %>
+<% title = "vehicle" %>
 
-<div class="container">
-  <h1> <%
-  if (title) {
-    %><%= title %>
-    <% } else {
-      res.redirect('/')
-    } %>
-    </h1>
-
-    <h2>Price: <%= new Intl.NumberFormat('en-US').format(formatVehicleInfo(carInfo).price) %></h2>
-    <h2>Mileage: <%= new Intl.NumberFormat('en-US').format(formatVehicleInfo(carInfo).mileage) %></h2>
-    <hr/>
-    <p><%= carInfo %></p>
-</div>
+<% if (typeof vehicleDetail !== 'undefined') { %>
+  <%- Util.formatVehicleDetail(vehicleDetail) %>
+<% } else { %>
+  <h2>No vehicle detail found</h2>
+<% } %>

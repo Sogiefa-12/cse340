@@ -215,6 +215,143 @@ main {
   color: rgb(9, 11, 12);
 }
 
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: .5rem;
+}
+
+.form-group input {
+  display: block;
+  width: 100%;
+  padding: .375rem .75rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #495057;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+  border-radius: .25rem;
+  transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+ 
+}
+
+.form-group button {
+  display: inline-block;
+  font-weight: 700;
+  line-height: 1;
+  padding: .375rem .75rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #495057;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  user-select: none;
+  background-color: #fff;
+  border: 1px solid transparent;
+  border-radius: .25rem;
+  appearance: none;
+}
+
+
+.btn {
+  display: inline-block;
+  font-weight: 700;
+  line-height: 1;
+  padding: .375rem .75rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #495057;
+  text-align: center;
+  white-space: nowrap;
+  
+  vertical-align: middle;
+  user-select: none;
+  background-color: #fff;
+  border: 1px solid transparent;
+  border-radius: .25rem;
+  transition: all .2s;
+  appearance: none;
+}
+
+.btn-link {
+text-decoration: none;
+color: #000;
+background-color: transparent;
+border: 0;}
+
+.btn-link:hover {
+  color: #495057;
+  text-decoration: underline;
+  background-color: transparent;
+}
+
+
+.fa {
+margin-right: 5px;
+}
+
+
+input[type="text"], input[type="email"], input[type="password"] {
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-bottom: 5px;
+  margin-top: 5px;
+}
+
+label {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 15px;
+}
+
+/* .btn {
+  display: block;
+  margin-top: 15px;
+} */
+
+.btn-primary {
+  display: block;
+  margin-top: 15px;
+  background-color: #337ab7;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 10px 20px;
+}
+
+#pswdBtn {
+border: 2px solid #000;
+border-radius: 5px;
+padding: 2px; 
+margin-top: 1em;
+font-size: small;
+width: 7em;
+text-align: center;
+}
+
+#displayBtn {
+  border: 2px solid #000;
+  border-radius: 5px;
+  padding: 2px; 
+  margin-top: 1em;
+  font-size: small;
+  width: 7em;
+  text-align: center;
+  }
+
+  .notice {
+    
+    font-style: italic;
+    color: red;
+    font-size: medium;
+  }
+
 footer{
   
     padding: 20px;
@@ -227,13 +364,45 @@ footer{
 }
 
 /* Media queries */
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 650px) {
   /* Adjust styles for larger screens */
 
-.nav li {
-    padding: 10px;
+  .nav {
+    background: #333;
+    display: flex;
+    list-style-type: none;
+    margin:15px;
+    margin-top: -40px;
+    margin-bottom: -40px;
+    padding: 0px;
+    color: white;
+    border-left: 3px solid blue;
+    border-right: 3px solid blue;
+    box-sizing:content-box;
+    justify-content: center;
+   
   }
-
+  
+  
+  .nav li {
+  
+    font-weight: 200;
+    list-style: none;
+    margin: 20px;
+    justify-content: space-between;
+  }
+  
+  nav ul li {
+    margin: 5px;
+  }
+  
+  .nav li a {
+    color: #fff;
+    padding: 10px;
+    text-decoration: none;
+    border: 0;
+  }
+  
   .car-props{
     flex-direction: column;
   }
@@ -248,9 +417,17 @@ footer{
     background-image: none;
   }
 
+  .nav{
+    margin-left: 40px;
+    margin-right: 40px;
+  }
+
   .nav ul {
     flex-direction: row;
     align-items: center;
+    padding-right: 0;
+    padding-left: 0;
+    font-weight: 100;
     
   }
 
@@ -258,6 +435,9 @@ footer{
     margin: 10px 0;
     font-weight: 100;
     justify-content: space-around;
+    padding-right: .1rem;
+    padding-left: .1rem;
+    font-size: medium;
   }
 
   .car-ups > .car-up-item {
@@ -285,6 +465,8 @@ footer{
   .nav-menu {
     display: block;
     text-align: center;
+    margin-right: 20px;
+    margin-left: 20px;
   }
 
 
@@ -293,7 +475,7 @@ footer{
 
 
 /* Media queries for L screen*/
-@media screen and (min-width:768px) {
+@media screen and (min-width:650px) {
   /*Remove bckground image for small screens */
   body {
     background-image: url(/images/site/checkerboard.jpg);

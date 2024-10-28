@@ -10,4 +10,7 @@
 <%# messages() %>
 
 <!--Inventory Items Display-->
+<% vehicles.forEach(function(vehicle) { %>
+    <a href="/inv/inventory/detail?id=<%= vehicle.id %>">View <%= vehicle.name %> Details</a>
+  <% }); %>
 <%- grid %>
