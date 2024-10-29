@@ -1,3 +1,5 @@
+const jwt = require("jsonwebtoken")
+require("dotenv").config()
 const invModel = require("../models/inventory-model")
 const Util = {}
 
@@ -9,7 +11,7 @@ Util.getNav = async function (req, res, next) {
   console.log(data)
   let list = "<ul>"
   list += '<li><a href="/" title="Home page">Home</a></li>'
-  data.rows.forEach((row) => {
+  data.forEach((row) => {
     list += "<li>"
     list +=
       '<a href="/inv/type/' +
@@ -108,5 +110,53 @@ Util.formatVehicleDetail = (vehicleDetail) => {
     </div>
   `;
 };
+
+
+Util.buildClassificationList = (data) => {
+  let classificationList = data.map(item => {
+    return `<option value="${item.classification_id}">${item.classification_name}</option>`;
+  });
+
+  classificationList = `<option value="" disabled selected>Please select a classification</option>${classificationList}`;
+
+  return classificationList;
+};
+
+
+/* ****************************************
+* Middleware to check token validity
+**************************************** */
+Util.checkJWTToken = (req, res, next) => {
+  if (req.cookies.jwt) {
+    jwt.verify(
+      req.cookies.jwt,
+      process.env.ACCESS_TOKEN_SECRET,
+      function (err, accountData) {
+        if (err) {
+          // Do not redirect on error, but set isLoggedIn to false
+          res.locals.isLoggedIn = false;
+        } else {
+          res.locals.accountData = accountData;
+          res.locals.isLoggedIn = true;
+        }
+        next();
+      }
+    );
+  } else {
+    next();
+  }
+};
+
+ /* ****************************************
+ *  Check Login
+ * ************************************ */
+ Util.checkLogin = (req, res, next) => {
+  if (res.locals.loggedin) {
+    next()
+  } else {
+    req.flash("notice", "Please log in.")
+    return res.redirect("/account/login")
+  }
+ }
 
 module.exports = Util

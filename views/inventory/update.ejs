@@ -1,5 +1,5 @@
 <h1>Add Inventory Item</h1>
-    <form action="/add-inventory-item" method="POST">
+    <form action="/update" method="POST">
       <div>
         <label for="inv_classification_id">Classification</label>
         <select name="inv_classification_id">
@@ -58,7 +58,12 @@
             </div>
             <div>
               
-                <button type="submit">Add Inventory Item</button>
+                <button type="submit">Update Inventory</button>
+            </div>
+            <div>
+                <input type="hidden" name="inv_id"
+                <% if(locals.inv_id) { %> value="<%= locals.inv_id %>"
+                <% } %>>
             </div>
 </form>
 

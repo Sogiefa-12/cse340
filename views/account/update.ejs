@@ -1,0 +1,30 @@
+<% if (errors) { %>
+    <%- include('../partials/errors', { errors: errors }) %>
+  <% } %>
+  
+  <% if (messages) { %>
+    <%- include('../partials/messages', { messages: messages }) %>
+  <% } %>
+  
+  <h1><%= title %></h1>
+  
+  <h2>Account Update</h2>
+  <form method="POST" action="/account/update">
+    <input type="hidden" name="account_id" value="<%= client._id %>">
+    <label for="firstName">First Name</label>
+    <input type="text" id="firstName" name="firstName" value="<%= client.firstName %>" required/>
+    <label for="lastName">Last Name</label>
+    <input type="text" id="lastName" name="lastName" value="<%= client.lastName %>" required/>
+    <label for="email">Email</label>
+    <input type="email" id="email" name="email" value="<%= client.email %>" required/>
+    <button type="submit">Update Account</button>
+  </form>
+  
+  <h2>Change Password</h2>
+  <form method="POST" action="/account/password">
+    <input type="hidden" name="account_id" value="<%= client._id %>">
+    <label for="password">New Password</label>
+    <input type="password" id="password" name="password" pattern=".{8,}" title="Minimum 8 characters" required/>
+    <small>Your password must be at least 8 characters long.</small>
+    <button type="submit">Change Password</button>
+  </form>

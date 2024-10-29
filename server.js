@@ -5,6 +5,7 @@
 /* ***********************
  * Require Statements
  *************************/
+
 const express = require("express")
 const session = require("express-session");
 const expressLayouts =
@@ -20,7 +21,7 @@ const bodyParser = require("body-parser")
 const path = require("path")
 const inventoryRoute = require("./routes/inventoryRoute")
 const accountsRoute = require("./routes/accountsRoute")
-
+const cookieParser = require("cookie-parser")
 
 
 // bodyParser
@@ -50,6 +51,35 @@ app.use(function(req, res, next){
   next()
 })
 
+// Cookie Parser 
+app.use(cookieParser())
+
+// Create a middleware function to check if the user is logged in
+app.use((req, res, next) => {
+  // Check if the user is logged in (if they have a JWT in their cookies)
+  if (req.cookies.jwt) {
+    // Set a local variable indicating the user is logged in
+    res.locals.isLoggedIn = true;
+  }
+  next();
+});
+
+
+
+// JWTToken
+app.use(utilities.checkJWTToken)
+
+
+// Create a new middleware function to check account type
+app.use((req, res, next) => {
+  // Check if account type is either 'Employee' or 'Admin'
+  if (req.locals.accountData.accountType !== 'Employee' && req.locals.accountData.accountType !== 'Admin') {
+    // On failure, redirect to login with an error message
+    req.flash('error_msg', 'Unauthorized Access. Please log in with an Employee or Admin account.');
+    return res.redirect('/account/login');
+  }
+  next();
+});
 
 /* ***********************
  * View Engine and Templates

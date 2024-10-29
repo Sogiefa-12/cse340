@@ -1,6 +1,36 @@
-<h1> Inventory Management</h1>
+<!-- Greet the client by first name -->
+<h2>Welcome <%= clientFirstName %></h2>
+
+<% if (accountType === 'Employee' || accountType === 'Admin') { %>
+  <!-- Add the greeting and link to inventory management for Employee and Admin accounts -->
+  <h3>Inventory Management</h3>
+  <p><a href="/account/inventory">Access Inventory Management</a></p>
+<% } %>
+
+<% if (accountType === 'Client' || accountType === 'Employee' || accountType === 'Admin') { %>
+  <!-- Add the update account information link for all account types -->
+  <a href="/account/update/<%= accountData._id %>">Update Account Information</a>
+<% } %>
+
 <h2>Manage inventory and classifications</h2>
 
 <a href="./add-classification">Add New Classification</a>
 <a href="./add-inventory-item">Add New Inventory</a>
-<p><%= flash.message %></p>
+
+<h2>Manage Inventory</h2>
+<p>Choose a Classification to see those inventory items.</p>
+<form action="/inv/inventoryList" method="post" id="classificationForm">
+    <div>
+      <label for="classification">Select a Classification:</label>
+      <select id="classificationList" name="classification">
+        <%- classificationSelect %>
+      </select>
+    </div>
+    <input type="submit" value="Submit">
+  </form>
+  
+  <table id="inventoryDisplay"></table>
+
+<noscript>Javascript must be enabled to use this page. </noscript>
+
+<script src="../../public/js/inventory.js"></script>

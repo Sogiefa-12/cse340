@@ -21,6 +21,21 @@ router.post('/register',
 )
 
 // Process the login attempt
-router.post('/login', validate.LoginRules, validate.checkLoginData, utilities.handleErrors(accountsController.loginValidation))
+router.post('/login', regValidate.LoginRules,  regValidate.checkLoginData, utilities.handleErrors(accountsController.accountLogin))
+
+// Login Management view
+router.get('/', utilities.checkLogin, utilities.handleErrors(accountsController.manageLogin))
+
+
+// Account Update Routes
+router.get('/update', accountsController.manageAccountUpdate);
+router.post('/update', accountsController.processAccountUpdate);
+
+
+
+// Password Change Routes
+router.get('/password', accountsController.managePasswordChange);
+router.post('/password', accountsController.processPasswordChange);
 
 module.exports = router
+

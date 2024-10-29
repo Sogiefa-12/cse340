@@ -1,0 +1,12 @@
+<h1>Modify Inventory Item</h1>
+
+<form action="/inventory/update" method="post">
+  <label>Make:</label>
+  <input type="text" name="inv_make" value="<%= vehicle.make %>"><br>
+
+  <label>Model:</label>
+  <input type="text" name="inv_model" value="<%= vehicle.model %>"><br>
+
+  <input type="hidden" name="inventory_id" value="<%= vehicle.inventory_id %>">
+  <input type="submit" value="Update">
+</form>

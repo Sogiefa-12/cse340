@@ -1,0 +1,62 @@
+<h1><%= title %></h1>
+
+<% if (typeof errors !== 'undefined' && errors.inv_classification_id) { %>
+  <div>
+      <% for (const error of errors.inv_classification_id) { %>
+      <div class="error">
+      <%- error %>
+      </div>
+      <% } %>
+      </div>
+  <% } %>
+  </div>
+
+<form action="/inv/update/<%= inv_id %>" method="POST"  id="updateForm" enctype="multipart/form-data">
+  <div>
+    <label>Make:</label>
+    <input type="text" name="inv_make" value="<%= inv_make %>" required>
+  </div>
+  <div>
+    <label>Model:</label>
+    <input type="text" name="inv_model" value="<%= inv_model %>" required>
+  </div>
+  <div>
+    <label>Year:</label>
+    <input type="text" name="inv_year" value="<%= inv_year %>" required>
+  </div>
+  <div>
+    <label>Description:</label>
+    <textarea name="inv_description" required><%= inv_description %></textarea>
+  </div>
+  <div>
+    <label>Image URL:</label>
+    <input type="text" name="inv_image" value="<%= inv_image %>" placeholder="http://example.com/image.jpg">
+  </div>
+  <div>
+    <label>Thumbnail URL:</label>
+    <input type="text" name="inv_thumbnail" value="<%= inv_thumbnail %>" placeholder="http://example.com/thumbnail.jpg">
+  </div>
+  <div>
+    <label>Price:</label>
+    <input type="number" step="0.01" name="inv_price" value="<%= inv_price %>" required>
+  </div>
+  <div>
+    <label>Miles:</label>
+    <input type="text" name="inv_miles" value="<%= inv_miles %>" required>
+  </div>
+  <div>
+    <label>Color:</label>
+    <input type="text" name="inv_color" value="<%= inv_color %>" required>
+  </div>
+  <div>
+    <label>Classification:</label>
+    <select name="classification_id" required>
+      <%= classificationSelect %>
+    </select>
+  </div>
+  <input type="hidden" name="inv_id" value="<%= inv_id %>">
+  <button type="submit" disabled>Update Inventory</button>
+  <a href="inv/update">Cancel</a>
+
+  <script src="../../inv-update.js"></script>
+</form>

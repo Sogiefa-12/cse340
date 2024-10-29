@@ -17,7 +17,7 @@ router.get("/type/:classificationId", invController.buildByClassificationId);
 router.get("/detail/:id", invController.getVehicleDetail);
 
 // Render management view
-router.get("/management", invController.management);
+router.get("/management", invController.buildManagementView);
 
 
 // // Add inventory item GET route
@@ -49,6 +49,58 @@ router.post(
 );
 
 
+// Route to Inventory in the Javascript file
+
+router.get("/getInventory/:classification_id", utilities.handleErrors(invController.getInventoryJSON))
+
+
+
+// Inventory edit route
+router.get('/inv/edit/:inv_id', invController.editInventoryView);
+
+router.post("/update/", invController.updateInventory)
+
+
+// // Protected routes (only accessible by Employee or Admin account types)
+// router.get('/protected/route1', (req, res) => {
+//   // Example: Display a list of vehicles for Employee or Admin users
+//   const vehicleList = getVehiclesFromDatabase();
+//   res.render('vehicle_list', { vehicles: vehicleList });
+// });
+
+// router.post('/protected/route2', (req, res) => {
+//   // Example: Add a new vehicle for Employee or Admin users
+//   const newVehicle = {
+//     // Parse vehicle data from the request body
+//     // Example: newVehicle.make = req.body.make
+//     // Example: newVehicle.model = req.body.model
+//   };
+
+//   // Example: Store the new vehicle in the database
+//   const result = addVehicleToDatabase(newVehicle);
+//   if (result) {
+//     req.flash('success_msg', 'New vehicle added successfully!');
+//   } else {
+//     req.flash('error_msg', 'Error adding new vehicle.');
+//   }
+//   res.redirect('/protected/route1');
+// });
+
+
+
+// // Unprotected routes (classification or detail views)
+// app.get('/unprotected/route1', (req, res) => {
+//   // Example: Display a vehicle detail view
+//   const vehicleId = req.query.vehicleId;
+//   const vehicleDetail = getVehicleDetailFromDatabase(vehicleId);
+//   res.render('vehicle_detail', { vehicle: vehicleDetail });
+// });
+
+// app.get('/unprotected/route2', (req, res) => {
+//   // Example: Display a list of vehicle classifications
+//   const classifications = getClassificationsFromDatabase();
+//   res.render('classification_list', { classifications: classifications });
+// });
 
 
 module.exports = router
