@@ -22,7 +22,7 @@ const path = require("path")
 const inventoryRoute = require("./routes/inventoryRoute")
 const accountsRoute = require("./routes/accountsRoute")
 const cookieParser = require("cookie-parser")
-
+const { checkLogin } = require("./utilities/index");
 
 // bodyParser
 app.use(bodyParser.json())
@@ -70,16 +70,8 @@ app.use((req, res, next) => {
 app.use(utilities.checkJWTToken)
 
 
-// Create a new middleware function to check account type
-app.use((req, res, next) => {
-  // Check if account type is either 'Employee' or 'Admin'
-  if (req.locals.accountData.accountType !== 'Employee' && req.locals.accountData.accountType !== 'Admin') {
-    // On failure, redirect to login with an error message
-    req.flash('error_msg', 'Unauthorized Access. Please log in with an Employee or Admin account.');
-    return res.redirect('/account/login');
-  }
-  next();
-});
+// app.use(checkLogin);
+
 
 /* ***********************
  * View Engine and Templates
@@ -112,15 +104,6 @@ app.use(static)
 // Index route
 app.get("/", baseController.buildHome)
 
-// app.get("/inv", invController.getInventoryDetail )
-
-
-
-// Inventory routes
-app.use("/inv", inventoryRoute)
-
-// Account Routes
-app.use("/account", accountsRoute)
 // Home page route
 app.get("/", async (req, res) => {
   try {
@@ -129,6 +112,12 @@ app.get("/", async (req, res) => {
     res.render("errors/error", {err: err, message: err.message});
   }
 });
+
+// Inventory routes
+app.use("/inv", inventoryRoute)
+
+// Account Routes
+app.use("/account", accountsRoute)
 
 
 app.use(async (req, res, next) => {
