@@ -86,16 +86,9 @@ app.use((req, res, next) => {
   next()
 })
 
-// // Define nav variable with your navigation data
-// const nav = [
-//   { text: 'Home', url: '/' },
-//   { text: 'Inventory', url: '/inventory' },
-//   // Add more navigation items as needed
-// ];
 
 app.locals.Util = utilities;
 
-// app.locals.nav = nav;
 
 /* ***********************
  * Routes

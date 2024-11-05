@@ -19,11 +19,13 @@ router.post('/register',
 );
 
 // Process the login attempt
-router.post('/login',
-  regValidate.LoginRules,
-  regValidate.checkLoginData,
-  utilities.handleErrors(accountsController.accountLogin)
-);
+// router.post('/login',
+//   regValidate.LoginRules,
+//   regValidate.checkLoginData,
+//   utilities.handleErrors(accountsController.accountLogin)
+// );
+
+router.post('/login', utilities.handleErrors(accountsController.accountLogin))
 
 // Login Management view (Check if the user is logged in)
 router.get('/management', utilities.checkLogin, utilities.handleErrors(accountsController.manageLogin));
