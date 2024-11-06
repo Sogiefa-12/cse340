@@ -3,6 +3,7 @@ const accountModel = require('../models/account-model');
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
+const { resetPassword } = require('../models/account-model');
 
 async function buildLogin(req, res, next) {
   let nav = await utilities.getNav();
@@ -135,14 +136,14 @@ async function accountLogin(req, res) {
 
 
 
-const manageLogin = (req, res) => {
-  console.log("[manageLogin] Function started");
+const manageLogin = async (req, res) => {
+  const nav = await utilities.getNav();
 
   res.render("account/management", {
     messages: req.flash("info"),
     errors: req.flash("error"),
     title: "Account Management",
-    nav: "account"
+    nav
   });
 
 };
@@ -154,7 +155,6 @@ const manageAccountUpdate = async (req, res) => {
   const { account_id } = req.body;
   const accountData = await accountModel.getAccountData(account_id);
 
-  console.log("[manageAccountUpdate] Retrieved account data for update");
 
   res.render('account/update', {
     title: 'Account Update',
@@ -162,13 +162,11 @@ const manageAccountUpdate = async (req, res) => {
     accountData,
   });
 
-  console.log("[manageAccountUpdate] Rendering Account Update page");
-
-  console.log("[manageAccountUpdate] Function ended");
+ 
 };
 
 const processAccountUpdate = async (req, res) => {
-  console.log("[processAccountUpdate] Function started");
+  
   const { firstName, lastName, email, account_id } = req.body;
 if (email && emailExists(email)) {
 req.flash('error', 'Email address already exists!');
@@ -195,8 +193,7 @@ title: 'Change Password',
 nav,
 accountData,
 });
-console.log("[managePasswordChange] Rendering Password Change page");
-console.log("[managePasswordChange] Function ended");
+
 };
 const processPasswordChange = async (req, res) => {
 console.log("[processPasswordChange] Function started");
@@ -214,6 +211,60 @@ req.flash('success', 'Password updated successfully!');
 res.redirect('/account/management');
 };
 
+
+const getResetPassword = async (req, res) => {
+  const nav = await utilities.getNav();
+  res.render('account/reset-password', {
+    title: 'Reset Password',
+    nav,
+
+
+  });
+};
+
+
+const postResetPassword = async (req, res) => {
+  const { new_password, account_email } = req.body;
+
+  // Check if email is provided
+  if (!account_email) {
+    // Return an error if the email is not provided
+    return res.status(400).json({ error: 'Email is required' });
+  }
+
+  // Validate the email format
+  const emailRegex = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/;
+  if (!emailRegex.test(account_email)) {
+    // Return an error if the email format is invalid
+    return res.status(400).json({ error: 'Invalid email format' });
+  }
+
+  // Generate access token
+  const accessToken = jwt.sign({}, process.env.ACCESS_TOKEN_SECRET, {
+    expiresIn: 3600 * 1000, // 1 hour
+  });
+
+  try {
+    // Perform the password reset using the retrieved email
+    await resetPassword(account_email, new_password);
+
+    // Send access token in cookie
+    if (process.env.NODE_ENV === 'development') {
+      res.cookie('jwt', accessToken, { httpOnly: true, maxAge: 3600 * 1000 });
+    } else {
+      res.cookie('jwt', accessToken, { httpOnly: true, secure: true, maxAge: 3600 * 1000 });
+    }
+
+    // Redirect to account management page
+    res.redirect('/account/management');
+  } catch (err) {
+    // Return an error if password reset fails
+    req.flash('error_msg', 'An error occurred. Please try again later.');
+    res.status(400).render('account/reset-password');
+  }
+};
+
+
 module.exports = {
   buildLogin,
   buildRegister,
@@ -224,5 +275,7 @@ module.exports = {
   processAccountUpdate,
   managePasswordChange,
   processPasswordChange,
+  getResetPassword,
+  postResetPassword
   };
   

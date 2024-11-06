@@ -38,4 +38,10 @@ router.post('/update', utilities.checkLogin, accountsController.processAccountUp
 router.get('/password', utilities.checkLogin, accountsController.managePasswordChange);
 router.post('/password', utilities.checkLogin, accountsController.processPasswordChange);
 
+// Passord Reset Routes 
+
+router.get('/reset-password', accountsController.getResetPassword);
+router.post('/reset-password', accountsController.postResetPassword);
+
+
 module.exports = router;

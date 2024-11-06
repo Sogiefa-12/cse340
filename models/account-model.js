@@ -1,4 +1,5 @@
 const pool = require("../database");
+const bcrypt = require('bcryptjs');
 
 
 /* *****************************
@@ -28,25 +29,6 @@ async function checkExistingEmail(account_email){
     return error.message
   }
 }
-
-// async function checkLoginData(account_email, account_password) {
-//   let results
-
-//   try {
-//     const accountData = await getAccountByEmail(account_email);
-
-//     if (accountData) {
-//       results = await bcrypt.compare(account_password, accountData.account_password);
-//       if (results) {
-//         return accountData;
-//       }
-//     }
-//   } catch (error) {
-//     console.error(error);
-//     return null;
-//   }
-//   return null;
-// }
 
 
 async function checkLoginData(account_email, account_password) {
@@ -122,5 +104,32 @@ const updatePassword = async (account_password, account_id) => {
   }
 };
 
-  module.exports = {registerAccount, checkExistingEmail, checkLoginData, getAccountByEmail, getAccountById, updateAccountInfo, updatePassword}
+
+
+
+async function resetPassword(accountEmail, newPassword) {
+  try {
+    const account = await pool.query(
+      'SELECT * FROM account WHERE account_email=$1',
+      [accountEmail]
+    );
+    
+    if (account.rows.length > 0) {
+      const accountData = account.rows[0];
+      const hashedPassword = await bcrypt.hash(newPassword, 10);
+      
+      await pool.query(
+        'UPDATE account SET account_password=$1 WHERE account_id=$2',
+        [hashedPassword, accountData.account_id]
+      );
+    } else {
+      throw new Error('Account not found');
+    }
+  } catch (error) {
+    throw new Error('An error occurred while resetting your password.');
+  }
+}
+
+
+  module.exports = {registerAccount, checkExistingEmail, checkLoginData, getAccountByEmail, getAccountById, updateAccountInfo, updatePassword, resetPassword}
 
